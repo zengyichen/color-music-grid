@@ -8,7 +8,7 @@ const GridView: Component<{
   onSelect: (id: SongType) => any
 }> = (props) => {
   return (
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-3 gap-4">
       <For each={props.data}>
         {song => (
           <SongView
