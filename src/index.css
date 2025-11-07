@@ -14,6 +14,20 @@ html {
   background-color: lightgrey;
 }
 
+@font-face {
+  font-family: 'SweiFanSerifCJKtc-Regular';
+  src: url(https://cdn.jsdelivr.net/gh/max32002/swei-fan-serif@1.1/WebFont/CJK%20TC/SweiFanSerifCJKtc-Regular.woff2) format("woff2"),
+       url(https://cdn.jsdelivr.net/gh/max32002/swei-fan-serif@1.1/WebFont/CJK%20TC/SweiFanSerifCJKtc-Regular.woff) format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply the font site-wide */
+html, body, #root, input, button {
+  font-family: 'SweiFanSerifCJKtc-Regular', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 input {
   box-sizing: border-box;
 }

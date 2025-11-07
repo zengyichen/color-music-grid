@@ -10,26 +10,28 @@ import './index.css'
 import { Download } from './components/Download'
 
 const TYPES = [
-  '入坑曲',
-  '无聊时的耳前一亮',
-  '失落时的一缕阳光',
-  '百听不厌',
-  '一闻钟情',
-  '跟着抖腿',
-  '泣不成声',
-  '江郎才尽',
-  '听完毫无印象',
-  '最想安利的',
-  '最震撼的',
-  '消磨时间时候听',
-  '最能勾起回忆的',
-  '寒毛直竖',
-  '最有故事的',
-  '最热血的',
-  '最怪的',
-  '最冷门的',
-  '最不希望它火的',
-  '最过誉的',
+  '蓝色',
+  '黄色',
+  '红色',
+  '黑色',
+  '白色',
+  '橙色',
+  '粉色',
+  '紫色',
+  '绿色',
+]
+
+// 9 light color classes matching the `TYPES` above (light variants so text stays readable).
+const GRID_COLORS: string[] = [
+  'bg-blue-200',
+  'bg-yellow-200',
+  'bg-red-200',
+  'bg-neutral-700',
+  'bg-gray-70',
+  'bg-orange-200',
+  'bg-pink-200',
+  'bg-purple-200',
+  'bg-green-200',
 ]
 
 function setStorage(obj: MayBeSong[]) {
@@ -93,9 +95,10 @@ const App: Component = () => {
     <ErrorBoundary fallback={(err, reset) => <ErrorFallback err={err} reset={reset} />}>
       <div class="w-1170px" classList={{ 'mx-a': ma() }}>
         <div ref={setDom} class="bg-white/100 p-8 pb-4">
-          <input class="text-center font-700 text-2rem w-full border-none p-4" value="音乐生涯个人喜好表（可修改标题）" />
+          <input class="text-center font-700 text-2rem w-full border-none p-4" value="封面颜色推歌" />
           <GridShow
             data={songs}
+            colors={GRID_COLORS}
             onSelect={(id) => {
               setCur(id)
               setDlg(true)
@@ -107,7 +110,7 @@ const App: Component = () => {
           {ma() ? '点击生成' : <>生成中 请稍等 网页突然靠左是<span class="line-through">特性</span></>}
         </button>
         <div class="text-center p-4">
-          <a class="link" href="https://github.com/widcardw/music-grid">GitHub</a>
+          <a class="link" href="https://github.com/zengyichen/music-grid">GitHub</a>
         </div>
       </div>
       <Show when={showDownload()}>

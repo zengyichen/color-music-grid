@@ -6,10 +6,28 @@ import { SongView } from '../SongView'
 const SongShown: Component<{
   song: MayBeSong
   onClick: (id: number) => any
+  color?: string
 }> = (props) => {
+  const titleClass = (() => {
+    const c = props.color ?? ''
+    // If this is the "黑色" tile, force white title per requirement
+    if (props.song.label === '黑色' || c.includes('slate') || c.includes('black'))
+      return 'text-white'
+    if (c.includes('blue')) return 'text-blue-800'
+    if (c.includes('yellow')) return 'text-yellow-800'
+    if (c.includes('red')) return 'text-red-800'
+    if (c.includes('gray')) return 'text-gray-800'
+    if (c.includes('orange')) return 'text-orange-800'
+    if (c.includes('pink')) return 'text-pink-800'
+    if (c.includes('purple')) return 'text-purple-800'
+    if (c.includes('green')) return 'text-green-800'
+    // fallback
+    return 'text-gray-800'
+  })()
+
   return (
-    <div class="cursor-pointer shadow p-2" onClick={() => props.onClick(props.song.index)}>
-      <strong>{props.song.label}</strong>
+    <div class={`cursor-pointer shadow p-2 ${props.color ?? ''}`} onClick={() => props.onClick(props.song.index)}>
+      <strong class={`${titleClass} text-xl mb-2`}>{props.song.label}</strong>
       <Switch>
         <Match when={props.song.type === 'label'}>
           <div class="w-200px h-200px" />

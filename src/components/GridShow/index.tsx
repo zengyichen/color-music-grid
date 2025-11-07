@@ -5,15 +5,15 @@ import { SongShown } from '../SongShown'
 
 const GridShow: Component<{
   data: MayBeSong[]
+  colors: string[]
   onSelect: (id: number) => any
 }> = (props) => {
   return (
-    <div class="grid grid-cols-5 gap-2">
+    <div class="grid grid-cols-3 gap-4">
       <For each={props.data}>
-        {song => <SongShown song={song} onClick={props.onSelect} />}
+        {song => <SongShown song={song} onClick={props.onSelect} color={props.colors[song.index % props.colors.length]} />}
       </For>
     </div>
-
   )
 }
 
