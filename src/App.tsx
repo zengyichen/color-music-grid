@@ -93,8 +93,8 @@ const App: Component = () => {
   }
   return (
     <ErrorBoundary fallback={(err, reset) => <ErrorFallback err={err} reset={reset} />}>
-      <div class="w-800px" classList={{ 'mx-a': ma() }}>
-        <div ref={setDom} class="bg-white/100 p-8 pb-4">
+      <div class="w-850px" classList={{ 'mx-a': ma() }}>
+        <div ref={setDom} class="bg-white/100 p-8 pb-4" style="aspect-ratio:1/1;" >
           <input class="text-center font-700 text-2rem w-full border-none p-4" value="封面颜色推歌" />
           <GridShow
             data={songs}
