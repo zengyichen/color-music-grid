@@ -49,13 +49,17 @@ const SongShown: Component<{
       style={isBgHexColor() ? { 'background-color': appliedBgColor() } : {}}
       onClick={() => props.onClick(props.song.index)}
     >
-      <strong class={`${titleClass} text-xl mb-2`} style={titleStyle()}>{props.song.label}</strong>
+      <div class={`${titleClass} text-xl mb-2`} style={titleStyle()}>{props.song.label}</div>
       <Switch>
         <Match when={props.song.type === 'label'}>
           <div class="w-200px h-200px" />
         </Match>
         <Match when={props.song.type === 'song'}>
-          <SongView song={props.song as SongShownType} />
+          <SongView 
+            song={props.song as SongShownType}
+            textClass={titleClass}
+            textStyle={titleStyle()}
+          />
         </Match>
         <Match when={props.song.type === 'onlyname'}>
           <div class="w-200px h-200px flex justify-center items-center">
