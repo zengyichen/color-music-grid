@@ -22,7 +22,7 @@ html {
 .page:hover {
   background-color: white;
 }
-
+/*
 @font-face {
   font-family: 'SweiFanSerifCJKtc-Regular';
   src: url(https://cdn.jsdelivr.net/gh/max32002/swei-fan-serif@1.1/WebFont/CJK%20TC/SweiFanSerifCJKtc-Regular.woff2) format("woff2"),
@@ -30,7 +30,7 @@ html {
   font-weight: bold;
   font-style: normal;
   font-display: swap;
-}
+}*/
 
 /* Apply the font site-wide */
 html, body, #root, input, button {

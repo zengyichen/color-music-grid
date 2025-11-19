@@ -97,7 +97,8 @@ const App: Component = () => {
   const [img, setImg] = createSignal('')
   const [showDownload, setDownload] = createSignal(false)
   const [ma, setMa] = createSignal(true)
-  const [scale, setScale] = createSignal(1)
+  // 默认缩放 67%
+  const [scale, setScale] = createSignal(0.67)
   let containerRef: HTMLDivElement | undefined
 
   const updateScale = () => {
@@ -109,11 +110,12 @@ const App: Component = () => {
     const scaleX = viewportWidth / containerWidth
     const scaleY = viewportHeight / containerHeight
     const newScale = Math.min(scaleX, scaleY, 1)
+    //cconst newScale = Math.min(containerWidth, containerHeight)
     setScale(newScale)
   }
 
   onMount(() => {
-    updateScale()
+    // 初始使用默认缩放值，不立即强制自适应；仅在窗口变化时再尝试调整。
     window.addEventListener('resize', updateScale)
   })
 
@@ -121,9 +123,23 @@ const App: Component = () => {
     window.removeEventListener('resize', updateScale)
   })
 
-  function generateCanvas() {
+  function generateCanvas(scaleFactor = 2) {
     setMa(false)
-    dom2img.toJpeg(dom(), { quality: 0.8 })
+    const node = dom()
+    const width = (node?.scrollWidth || node?.offsetWidth || 0)
+    const height = (node?.scrollHeight || node?.offsetHeight || 0)
+    dom2img.toJpeg(node!, {
+      quality: 0.95,
+      cacheBust: true,
+      width: Math.round(width * scaleFactor),
+      height: Math.round(height * scaleFactor),
+      style: {
+        transform: `scale(${scaleFactor})`,
+        transformOrigin: 'top left',
+        width: `${width}px`,
+        height: `${height}px`,
+      },
+    })
       .then((data) => {
         setImg(data)
         setDownload(true)
@@ -132,6 +148,7 @@ const App: Component = () => {
       .catch((e) => {
         // eslint-disable-next-line no-console
         console.log(e)
+        setMa(true)
       })
   }
   return (
@@ -203,7 +220,7 @@ const App: Component = () => {
               }}>
                 一键清除
               </button>
-              <button class="page mt-2 w-full" disabled={!ma()} onClick={generateCanvas}>
+              <button class="page mt-2 w-full" disabled={!ma()} onClick={() => generateCanvas()}>
                 {ma() ? '点击生成' : <>生成中 请稍等 网页突然靠左是<span class="line-through">特性</span></>}
               </button>
               <div class="text-center p-4">

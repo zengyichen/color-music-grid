@@ -52,51 +52,64 @@ const SearchPanel: Component<{
   }
 
   return (
-    <div class="w-300px p-4 bg-gray-100 h-full overflow-y-auto">
+    <div class="w-660px p-4 bg-gray-100 h-full overflow-y-auto space-y-3">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-lg font-semibold"></h3>
+        <button type="button" class="page" onClick={() => props.onClose?.()}>关闭</button>
+      </div>
       <div class="mb-4">
-        <label for="label-input" class="block mb-2 font-semibold">格子标题:</label>
+        <label for="label-input" class="block mb-2 font-semibold">格子标题</label>
         <input
           id="label-input"
           ref={setLabelEl}
           type="text"
-          class="cus-input"
+          class="cus-input w-full"
           value={props.initialLabel || ''}
           onInput={e => props.onLabelChange(e.currentTarget.value)}
           placeholder="输入标题"
         />
       </div>
-      <ColorEditor 
-        onBackgroundColorChange={props.onBackgroundColorChange} 
-        onTextColorChange={props.onTextColorChange}
-        defaultBackgroundColor={props.initialBackgroundColor}
-        defaultTextColor={props.initialTextColor}
-      />
-      <form onSubmit={onInputEnter} action="">
-        <input
-          ref={setEl}
-          type="search"
-          autofocus={true}
-          class="cus-input"
-          placeholder='输入关键词 查询歌曲'
+      <div class="mb-4">
+        <div class="block mb-2 font-semibold">颜色</div>
+        <ColorEditor 
+          onBackgroundColorChange={props.onBackgroundColorChange} 
+          onTextColorChange={props.onTextColorChange}
+          defaultBackgroundColor={props.initialBackgroundColor}
+          defaultTextColor={props.initialTextColor}
         />
-      </form>
-      <Show when={state().keyword.trim() !== ''}>
-        <SuspenseGrid data={data} onSelect={props.onSelect} />
-      </Show>
-      <Pagination
-        data={data}
-        state={state}
-        onChange={onPageChange}
-        onClose={props.onClose}
-      />
-      <div class="text-center space-x-2">
+      </div>
+      <div class="mb-4">
+        <form onSubmit={onInputEnter} action="">
+          <label for="song-search" class="block mb-2 font-semibold">搜索歌曲</label>
+          <input
+            id="song-search"
+            ref={setEl}
+            type="search"
+            autofocus={true}
+            class="cus-input w-full"
+            placeholder='输入关键词 查询歌曲'
+          />
+        </form>
+      </div>
+      <div class="mb-4">
+        <Show when={state().keyword.trim() !== ''}>
+          <SuspenseGrid data={data} onSelect={props.onSelect} />
+        </Show>
+        <Pagination
+          data={data}
+          state={state}
+          onChange={onPageChange}
+          onClose={props.onClose}
+        />
+      </div>
+      <div class="flex gap-2">
         <button
-          class="page"
+          class="page flex-1"
           onClick={() => props.onFill(el().value)}
           disabled={state().keyword.trim() === ''}
-        >没有找到想要的？直接填入吧
+        >直接填入
         </button>
-        <button class="page" onClick={() => props.onClear()}>清除这个格子</button>
+        <button class="page flex-1" onClick={() => props.onClear()}>清除格子</button>
       </div>
     </div>
   )
